@@ -3,16 +3,23 @@ package com.devsuperior.dsclient.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+
 import com.devsuperior.dsclient.entities.Client;
 
 public class ClientDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	@NotBlank(message = "Campo obrigatório")
 	private String name;
 	private String cpf;
+	@Positive(message = "Apenas numeros positivos")
 	private Double income;
 	private String email;
+	@PastOrPresent(message = "A data de nascimento não pode ser futura")
 	private Instant birthDate;
 	private Integer children;
 	
