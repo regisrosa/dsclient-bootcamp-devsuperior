@@ -9,10 +9,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dsclient.dto.ClientDTO;
+import com.devsuperior.dsclient.dto.ClientInsertDTO;
 import com.devsuperior.dsclient.entities.Client;
 import com.devsuperior.dsclient.repositories.ClientRepository;
 import com.devsuperior.dsclient.services.exceptions.DataBaseException;
@@ -20,6 +22,9 @@ import com.devsuperior.dsclient.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ClientService {
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private ClientRepository repository;
@@ -38,11 +43,13 @@ public class ClientService {
 	}
 	
 	@Transactional
-	public ClientDTO insert(ClientDTO dto) {
+	public ClientDTO insert(ClientInsertDTO dto) {
 		Client entity = new Client();
 		entity.setName(dto.getName());
 		entity.setCpf(dto.getCpf());
 		entity.setIncome(dto.getIncome());
+		entity.setEmail(dto.getEmail());
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity.setBirthDate(dto.getBirthDate());
 		entity.setChildren(dto.getChildren());
 		entity = repository.save(entity);
@@ -57,6 +64,7 @@ public class ClientService {
 			entity.setName(dto.getName());
 			entity.setCpf(dto.getCpf());
 			entity.setIncome(dto.getIncome());
+			entity.setEmail(dto.getEmail());
 			entity.setBirthDate(dto.getBirthDate());
 			entity.setChildren(dto.getChildren());
 			entity = repository.save(entity);

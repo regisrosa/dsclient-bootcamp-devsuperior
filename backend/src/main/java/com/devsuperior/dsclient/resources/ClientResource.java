@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.dsclient.dto.ClientDTO;
+import com.devsuperior.dsclient.dto.ClientInsertDTO;
 import com.devsuperior.dsclient.services.ClientService;
 
 @RestController
@@ -49,10 +50,10 @@ public class ClientResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity <ClientDTO> insert(@RequestBody ClientDTO dto){
-		dto = service.insert(dto);
+	public ResponseEntity <ClientDTO> insert(@RequestBody ClientInsertDTO dto){
+		ClientDTO newDto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-		return ResponseEntity.created(uri).body(dto);
+		return ResponseEntity.created(uri).body(newDto);
 	}
 	
 	@PutMapping(value = "/{id}")
