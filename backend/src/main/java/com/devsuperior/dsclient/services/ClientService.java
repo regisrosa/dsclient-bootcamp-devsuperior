@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dsclient.dto.ClientDTO;
 import com.devsuperior.dsclient.dto.ClientInsertDTO;
+import com.devsuperior.dsclient.dto.ClientUpdateDTO;
 import com.devsuperior.dsclient.entities.Client;
 import com.devsuperior.dsclient.repositories.ClientRepository;
 import com.devsuperior.dsclient.services.exceptions.DataBaseException;
@@ -58,7 +59,7 @@ public class ClientService {
 	}
 	
 	@Transactional
-	public ClientDTO update(Long id, ClientDTO dto) {
+	public ClientDTO update(Long id, ClientUpdateDTO dto) {
 		try {
 			Client entity = repository.getOne(id);
 			entity.setName(dto.getName());

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devsuperior.dsclient.dto.ClientDTO;
 import com.devsuperior.dsclient.dto.ClientInsertDTO;
+import com.devsuperior.dsclient.dto.ClientUpdateDTO;
 import com.devsuperior.dsclient.services.ClientService;
 
 @RestController
@@ -59,9 +60,9 @@ public class ClientResource {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity <ClientDTO> update(@PathVariable Long id, @Valid @RequestBody ClientDTO dto){
-		dto = service.update(id, dto);
-		return ResponseEntity.ok().body(dto);
+	public ResponseEntity <ClientDTO> update(@PathVariable Long id, @Valid @RequestBody ClientUpdateDTO dto){
+		ClientDTO newDto = service.update(id, dto);
+		return ResponseEntity.ok().body(newDto);
 	}
 	
 	@DeleteMapping(value = "/{id}")
