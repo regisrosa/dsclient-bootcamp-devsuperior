@@ -3,6 +3,7 @@ package com.devsuperior.dsclient.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
@@ -18,6 +19,7 @@ public class ClientDTO implements Serializable{
 	private String cpf;
 	@Positive(message = "Apenas numeros positivos")
 	private Double income;
+	@Email(message = "Favor entrar com email válido")
 	private String email;
 	@PastOrPresent(message = "A data de nascimento não pode ser futura")
 	private Instant birthDate;
